@@ -130,7 +130,7 @@ var styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         height: height,
-        // marginTop: 700,
+        // marginTop: 400,
     },
     input: {
         borderColor: "gray",

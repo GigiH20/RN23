@@ -5,8 +5,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Login from './screen/login';
-import Home from './screen/home';
 
+// import Home from './screen/home_page';
+import Home from './screen/home';
 const Stack = createNativeStackNavigator();
 
 
@@ -16,7 +17,7 @@ function App() {
   React.useEffect(() => {
     AsyncStorage.getItem("token")
       .then((val) => {
-        if (val && val != null && val != 'null'){
+        if (val && val != null && val != 'null') {
           console.log('val', val)
           setIslogin(true)
         }
@@ -29,16 +30,12 @@ function App() {
       <Stack.Navigator screenOptions={{
         // headerShown: false
       }}>
-        {
-          // isLogin ?
-            <Stack.Screen
-              options={{ headerShown: false }}
-              name="Home" component={Home} />
-              //  :
-            // <Stack.Screen
-            //   options={{ headerShown: false }}
-            //   name="login" component={Login} />
-        }
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Home" component={Home} />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="login" component={Login} />
       </Stack.Navigator>
     </NavigationContainer>
   );
