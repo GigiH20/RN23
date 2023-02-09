@@ -40,7 +40,7 @@ function App() {
         formData.append('img', val);
         axios({
             method: "post",
-            url: "http://192.168.0.101:3000/upload",
+            url: "http://localhost:3000/upload",
             data: formData,
             headers: { "Content-Type": "multipart/form-data" },
         })
@@ -57,7 +57,7 @@ function App() {
         try {
             setLoading(true)
             const token = await AsyncStorage.getItem("token");
-            const { data } = await axios.get('http://192.168.0.101:3000/user', {
+            const { data } = await axios.get('http://localhost:3000/user', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
