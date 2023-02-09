@@ -140,13 +140,11 @@ function App() {
                             )
                         }) : <Text>No data</Text>
                 }
-
                 <Button title='open camera' onPress={_handleOpenCam} />
                 <Button title='select image' onPress={_handleSelectImage} />
-                {/* <Button title='logout' onPress={() => {
-                    AsyncStorage.clear();
-                    // navigation.navigate("Login");
-                }} /> */}
+                <Button title='logout' onPress={() => {
+                    navigation.navigate("Login")
+                }} />
             </SafeAreaView>
         </LinearGradient>
     );

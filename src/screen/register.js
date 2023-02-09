@@ -18,7 +18,6 @@ function App() {
 
 
     const _handleLogin = async () => {
-        console.log('dddd')
         try {
             // http code dau 2xx
             const payload = {
@@ -42,11 +41,9 @@ function App() {
             colors={['#642B73', '#3b5998', '#C6426E']}
             style={styles.linearGradient} >
             <InputScrollView>
-
                 <View style={styles.wrap}>
-                    <View style={{alignItems: 'center'}}>
-                        <Text style={styles.headerText}>Welcome back</Text>
-                        <Text style={styles.subHeader}>Login to continue</Text>
+                    <View>
+                        <Text style={styles.headerText}>Create account</Text>
                     </View>
                     <TextInput
                         style={styles.input}
@@ -65,10 +62,11 @@ function App() {
                         onChangeText={e => setPassword(e)}
                     />
                     <BtnLiner text="Login000" onPress={() => _handleLogin()} />
+
                     <TouchableOpacity onPress={() => {
-                        navigate.navigate("Register")
+                        navigate.navigate("Login")
                     }} style={styles.register}>
-                        <Text style={styles.registerText}>Create account</Text>
+                        <Text style={styles.registerText}>Login</Text>
                     </TouchableOpacity>
                 </View>
             </InputScrollView>
@@ -162,12 +160,8 @@ var styles = StyleSheet.create({
         fontSize: 25,
         marginBottom: 15,
         color: '#fff'
-    },
-    subHeader: {
-        fontSize: 14,
-        marginBottom: 15,
-        color: '#fff'
     }
+
 });
 
 export default App;

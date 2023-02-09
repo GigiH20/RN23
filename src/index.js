@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Login from './screen/login';
+import Register from './screen/register';
 
 // import Home from './screen/home_page';
 import Home from './screen/home';
@@ -35,7 +36,10 @@ function App() {
           name="Home" component={Home} />
         <Stack.Screen
           options={{ headerShown: false }}
-          name="login" component={Login} />
+          name="Login" component={Login} />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Register" component={Register} />
       </Stack.Navigator>
     </NavigationContainer>
   );
