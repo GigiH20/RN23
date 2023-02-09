@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, TextInput, Touchable, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Touchable, TouchableOpacity, ScrollView, Dimensions, Alert } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import InputScrollView from 'react-native-input-scroll-view';
@@ -15,20 +15,25 @@ function App() {
     const navigate = useNavigation();
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [age, setAge] = React.useState('');
 
 
-    const _handleLogin = async () => {
+    const _submit = async () => {
         try {
             // http code dau 2xx
             const payload = {
                 "name": username,
-                "pass": password
+                "pass": password,
+                "age": age
             }
-            console.log('payload', payload)
-            const { data } = await axios.post('http://localhost:3000/login', payload);
-            AsyncStorage.setItem("token", data.token);
-            AsyncStorage.setItem("user", JSON.stringify(data.user));
-            navigate.navigate("Home")
+            if(!username || !password) {
+                Alert.alert("username and password is required!");
+                return 0;
+            }
+
+            const { data } = await axios.post('http://localhost:3000/user', payload);
+            console.log('asdfasdfasdf',data)
+            navigate.navigate("Login")
 
         } catch (err) { // rest
             console.log('asdfasdf', err);
@@ -61,7 +66,14 @@ function App() {
                         value={password}
                         onChangeText={e => setPassword(e)}
                     />
-                    <BtnLiner text="Login000" onPress={() => _handleLogin()} />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Age"
+                        value={age}
+                        keyboardType='numeric'
+                        onChangeText={e => setAge(e)}
+                    />
+                    <BtnLiner text="Create account" onPress={() => _submit()} />
 
                     <TouchableOpacity onPress={() => {
                         navigate.navigate("Login")
