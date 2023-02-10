@@ -7,6 +7,7 @@ import user from './screen/user';
 import Login from './screen/login';
 import Register from './screen/register';
 import Home from './screen/Home/index';
+import NewProduct from './screen/add_product';
 //import App from './screen/home_page/index'
 //import Home from './screen/home';
 const Stack = createNativeStackNavigator();
@@ -43,6 +44,9 @@ function App() {
         <Stack.Screen
           //options={{ }}
           name="User" component={user} />
+        <Stack.Screen
+          //options={{ }}
+          name="NewProduct" component={NewProduct} />
       </Stack.Navigator>
     </NavigationContainer>
 

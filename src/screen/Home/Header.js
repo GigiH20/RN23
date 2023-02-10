@@ -37,7 +37,8 @@ const Headers = () => {
 
 const styles = StyleSheet.create({
     container: {
-        height: '38%',
+        // height: '38%',
+        marginBottom: 20
     },
     topHeader: {
         height: '5%',
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
         marginHorizontal: '5%'
     },
     text: {
-        fontFamily: 'Anton-Regular',
+        // fontFamily: 'Anton-Regular',
         fontSize: 26,
         marginHorizontal: '1%',
     },
