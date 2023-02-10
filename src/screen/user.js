@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, TextInput, Touchable, TouchableOpacity, ScrollView, Dimensions, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Touchable, TouchableOpacity, ScrollView, Dimensions, Alert,Image } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import InputScrollView from 'react-native-input-scroll-view';
@@ -17,29 +17,24 @@ function App() {
     const [password, setPassword] = React.useState('');
     const [age, setAge] = React.useState('');
 
-
-    const _submit = async () => {
+    const getListUser = async () => {
         try {
-            // http code dau 2xx
-            const payload = {
-                "name": username,
-                "pass": password,
-                "age": age
-            }
-            if(!username || !password) {
-                Alert.alert("username and password is required!");
-                return 0;
-            }
-
-            const { data } = await axios.post('http://20.115.75.139:3465/user', payload);
-            console.log('asdfasdfasdf',data)
-            navigate.navigate("Login")
-
-        } catch (err) { // rest
-            console.log('asdfasdf', err);
+            const token = await AsyncStorage.getItem("token");
+            const { data } = await axios.get('http://20.115.75.139:3465/user/one', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            console.log('datadatadatadatadatadatadata', data)
+            setUsername(data?.data.name)
+            setAge(data?.data.age)
+            //setListUser(data.data)
+        } catch (err) {
+            // setListUser([])
+            console.log(err)
         }
     }
-
+    React.useEffect(() => { getListUser() }, [])
     return (
         <LinearGradient
             start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
@@ -47,38 +42,21 @@ function App() {
             style={styles.linearGradient} >
             <InputScrollView>
                 <View style={styles.wrap}>
+                <Image source={require('../../assets/icons/6386976.png')}
+                resizeMode="stretch" style={styles.image} />
                     <View>
-                        <Text style={styles.headerText}>Create account</Text>
+                        <Text style={styles.headerText}>Profile</Text>
                     </View>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Username"
-                        value={username}
-                        onChangeText={e => {
-                            console.log(e)
-                            setUsername(e)
-                        }}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        secureTextEntry={true}
-                        placeholder="Password"
-                        value={password}
-                        onChangeText={e => setPassword(e)}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Age"
-                        value={age}
-                        keyboardType='numeric'
-                        onChangeText={e => setAge(e)}
-                    />
-                    <BtnLiner text="Create account" onPress={() => _submit()} />
+                    <View>
+                    <Text style={styles.infoText}>Name: {username}</Text>
+                    <Text style={styles.infoText}>Age: {age}</Text>
+                    </View>
+                    <BtnLiner text="Delete account" onPress={() => _submit()} />
 
                     <TouchableOpacity onPress={() => {
                         navigate.navigate("Login")
                     }} style={styles.register}>
-                        <Text style={styles.registerText}>Login</Text>
+                        <Text style={styles.registerText}>Logout</Text>
                     </TouchableOpacity>
                 </View>
             </InputScrollView>
@@ -86,12 +64,13 @@ function App() {
     );
 }
 
+
 const BtnLiner = ({ text = '', onPress }) => {
     return (
         <LinearGradient
             start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
             colors={['#f12711', '#f5af19']} style={stylesBtn.btn} >
-            <TouchableOpacity onPress={onPress} style={stylesBtn.loginBtn}>
+            <TouchableOpacity onPress={onPress} style={stylesBtn.logoutBtn}>
                 <Text>{text}</Text>
             </TouchableOpacity>
         </LinearGradient>
@@ -118,7 +97,7 @@ const stylesBtn = StyleSheet.create({
         borderRadius: 10,
         ...shawDowStyle
     },
-    loginBtn: {
+    logoutBtn: {
         paddingVertical: 10,
         paddingHorizontal: 40,
     }
@@ -172,6 +151,10 @@ var styles = StyleSheet.create({
         fontSize: 25,
         marginBottom: 15,
         color: '#fff'
+    },
+    image:{
+        width: '50%',
+        height: '25%'
     }
 
 });

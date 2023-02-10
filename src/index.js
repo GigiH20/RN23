@@ -3,12 +3,12 @@ import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import user from './screen/user';
 import Login from './screen/login';
 import Register from './screen/register';
-
-// import Home from './screen/home_page';
-import Home from './screen/home';
+import Home from './screen/Home/index';
+//import App from './screen/home_page/index'
+//import Home from './screen/home';
 const Stack = createNativeStackNavigator();
 
 
@@ -40,9 +40,13 @@ function App() {
         <Stack.Screen
           options={{ headerShown: false }}
           name="Register" component={Register} />
+        <Stack.Screen
+          //options={{ }}
+          name="User" component={user} />
       </Stack.Navigator>
     </NavigationContainer>
+
   );
-}
+} 
 
 export default App;

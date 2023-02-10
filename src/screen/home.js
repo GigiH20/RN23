@@ -9,11 +9,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import InputScrollView from 'react-native-input-scroll-view';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { get } from 'lodash'
-
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-
 import axios from 'axios';
-
 const { height, width } = Dimensions.get('window');
 
 import LinearGradient from 'react-native-linear-gradient';
@@ -40,7 +37,7 @@ function App() {
         formData.append('img', val);
         axios({
             method: "post",
-            url: "http://localhost:3000/upload",
+            url: "http://20.115.75.139:3465/upload",
             data: formData,
             headers: { "Content-Type": "multipart/form-data" },
         })
@@ -57,7 +54,7 @@ function App() {
         try {
             setLoading(true)
             const token = await AsyncStorage.getItem("token");
-            const { data } = await axios.get('http://localhost:3000/user', {
+            const { data } = await axios.get('http://20.115.75.139:3465/user', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -143,6 +140,7 @@ function App() {
                 <Button title='open camera' onPress={_handleOpenCam} />
                 <Button title='select image' onPress={_handleSelectImage} />
                 <Button title='logout' onPress={() => {
+                    console.log('dsadsadsa')
                     navigation.navigate("Login")
                 }} />
             </SafeAreaView>

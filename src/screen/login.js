@@ -26,13 +26,14 @@ function App() {
                 "pass": password
             }
             console.log('payload', payload)
-            const { data } = await axios.post('http://localhost:3000/login', payload);
+            const { data } = await axios.post('http://20.115.75.139:3465/login', payload);
+            console.log(data)
             AsyncStorage.setItem("token", data.token);
-            AsyncStorage.setItem("user", JSON.stringify(data.user));
             navigate.navigate("Home")
 
         } catch (err) { // rest
             console.log('asdfasdf', err);
+            alert('login error')
         }
     }
 
